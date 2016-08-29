@@ -1,0 +1,8 @@
+@import "modules/variables";
+@import "modules/mixins";
+@import "modules/normalize";
+
+h1,.h1{
+	line-height: 36px;
+	color: pink;
+}

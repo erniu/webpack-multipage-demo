@@ -1,0 +1,346 @@
+// Mixins
+// --------------------------------------------------
+
+@mixin text-hide() {
+  font: 0/0 a;
+  text-shadow: none;
+  border: 0;
+  white-space: nowrap;
+  text-indent: -100%;
+  overflow: hidden;
+  text-align: left;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  // IE8 filter
+  $opacity-ie: ($opacity * 100);
+  filter: alpha(opacity=$opacity-ie);
+}
+
+//定义背景图片
+@mixin img-responsive($display: block) {
+  display: $display;
+  max-width: 100%; // Part 1: Set a maximum relative to the parent
+  height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+
+@mixin img-retina($file-1x, $file-2x, $width-1x, $height-1x) {
+  background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$file-1x}"), "#{$file-1x}"));
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$file-2x}"), "#{$file-2x}"));
+    background-size: $width-1x $height-1x;
+  }
+}
+
+@mixin img-url($file,$file-ie:false) {
+  background-image: url(#{$images-path}#{$file});
+  @if $file-ie == none{
+    _background-image: none;
+  }@else if $file-ie != false {
+    _background-image: url(#{$images-path}#{$file-ie});
+  }
+  background-repeat: no-repeat; 
+}
+
+@mixin img-pos($x,$y){
+  background-position: $x $y;
+}
+
+//css sprites
+
+@mixin css-sprites($file,$x,$y,$width,$height){
+  @include size($width,$height);
+  @include img-url(nth($file,1),nth($file,2));
+  @include img-pos($x,$y);
+}
+
+//重置ie滤镜
+@mixin reset-filter() {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+//resize
+@mixin resizable($direction) {
+  resize: $direction; // Options: horizontal, vertical, both
+  overflow: auto; // Per CSS3 UI, `resize` only applies when `overflow` isn't `visible`
+}
+
+//定义盒子宽高
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}
+
+//重置文本
+@mixin reset-text() {
+  font-family: $font-family-base;
+  // We deliberately do NOT reset font-size.
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: $line-height-base;
+  text-align: left; // Fallback for where `start` is not supported
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+}
+
+// 文本溢出 显示省略号
+@mixin text-overflow() {
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap:normal;
+  -webkit-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+//圆角边框
+@mixin border-top-radius($radius) {
+  border-top-right-radius: $radius;
+   border-top-left-radius: $radius;
+}
+@mixin border-right-radius($radius) {
+  border-bottom-right-radius: $radius;
+     border-top-right-radius: $radius;
+}
+@mixin border-bottom-radius($radius) {
+  border-bottom-right-radius: $radius;
+   border-bottom-left-radius: $radius;
+}
+@mixin border-left-radius($radius) {
+  border-bottom-left-radius: $radius;
+     border-top-left-radius: $radius;
+}
+
+// 渐变背景色
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+@mixin gradient-directional($start-color: #555, $end-color: #333, $deg: 45deg) {
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient($deg, $start-color, $end-color); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient($deg, $start-color, $end-color); // Opera 12
+  background-image: linear-gradient($deg, $start-color, $end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+}
+@mixin gradient-horizontal-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+  background-image: -o-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-vertical-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-image: -o-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-radial($inner-color: #555, $outer-color: #333) {
+  background-image: -webkit-radial-gradient(circle, $inner-color, $outer-color);
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-striped($color: rgba(255,255,255,.15), $angle: 45deg) {
+  background-image: -webkit-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+
+// 清除浮动
+@mixin clearfix() {
+  zoom:1;
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: block; // 2
+  }
+  &:after {
+  	font-size:0;
+    height:0;
+    clear: both;
+    visibility:hidden;
+    overflow:hidden;
+  }
+}
+
+
+// 元素居中
+@mixin center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// triangle
+@mixin triangle($direction, $size, $borderColor ) {
+  @extend %triangle-basic;
+  @if $direction == top {
+    border-bottom:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  } 
+  @else if $direction == right {
+    border-left:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  } 
+  @else if $direction == bottom {
+    border-top:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  } 
+  @else if $direction == left {
+    border-right:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  }
+}
+
+//黑色背景色半透明
+@mixin bgcolor-alpha($bgcolor: rgba(0,0,0,.5)){
+  color:#fff;
+  @if $filter{
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#{ie-hex-str($bgcolor)}', endColorstr='#{ie-hex-str($bgcolor)}');
+  }@else{
+    background-color: #333;
+  }
+  background-color:$bgcolor;
+}
+
+//最小高度
+@mixin min-height($height){
+  min-height: $height;
+  height: auto !important;
+  _height: $height;
+}
+
+//定义 inline-block
+@mixin inline-block-box{
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+}
+
+//定义icon基本属性
+@mixin icon($size,$file,$file-ie){
+	font-size: 1px;
+	line-height: 1px;
+	vertical-align: top;
+	*vertical-align: middle;
+	@include square($size);
+	@include img-url($file,$file-ie);
+    @include inline-block-box;
+}
+
+//定义button
+@mixin button-variant($color, $background, $border) {
+  color: nth($color, 1);
+  background-color: nth($background, 1);
+  border-color: nth($border, 1);
+
+  &:hover {
+    color: nth($color, 2);
+    background-color: nth($background, 2);
+    border-color: nth($border, 2);
+  }
+}
+
+@mixin button-size($padding, $font, $border-radius) {
+  padding: $padding;
+  font-size: nth($font,1);
+  line-height: nth($font,2);
+  border-radius: $border-radius;
+}
+
+//定义progressBar
+@mixin progressBar-variant($font-size,$height,$color) {
+  font-size: $font-size;
+  .progressBar-wrap{
+    height: $height;
+    span{
+      height: $height;
+      float: right;
+    }
+  }
+  .progressBar-txt{
+    color: $color;
+  }
+  .text-darkgray{
+    color: #333;
+  }
+
+}
+
+//定义countNumber
+@mixin countNumber-variant($countNumber-font,$number-size,$number-input-size,$number-input-padding,$number-btn-size) {
+  font-size: nth($countNumber-font,1);
+  line-height: nth($countNumber-font,2);
+  .number{
+    width: nth($number-size,1);
+    line-height: nth($countNumber-font,2);
+    .number-input{
+      font-size: nth($countNumber-font,1);
+      @include size(nth($number-input-size,1),nth($number-input-size,2));
+      padding: $number-input-padding;
+      line-height: nth($number-input-size,2);
+    }
+    .number-btn{
+      @include size(nth($number-btn-size,1),nth($number-btn-size,2));
+      line-height: nth($number-btn-size,2);
+      .icons20{
+        margin-top: (nth($number-btn-size,2) - 20)/2;
+      }
+    }
+  }
+}
+
+//定义notetip
+
+@mixin notetip-variant($font,$padding,$border,$radius,$bgcolor,$color) {
+  font-size: nth($font,1);
+  line-height: nth($font,2);
+  padding: $padding;
+  border: $border;
+  border-radius: $radius;
+  background-color: $bgcolor;
+  color: $color;
+}
+
+
+
+@import "mixins/vendor-prefixes";
+@import "mixins/forms";

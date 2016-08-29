@@ -1,0 +1,128 @@
+// 基本颜色
+$gray-base:              #000 !default;
+$gray-darker:            #222 !default; // #222
+$gray-dark:              #333 !default; // #333
+$gray:                   #666 !default; // #666
+$gray-light:             #999 !default; // #999
+$gray-lighter:           #ccc !default; // #ccc
+
+$redLight:				#f13131 !default; //
+$red:                   #ff0200 !default; //
+$redDark:				#e53d09 !default; //
+$redDark-hover:         #ff4e00 !default; //
+$blue:                  #1d5682 !default; //
+$blueDark:              #0064cd !default;
+$orange:                #F47837 !default;
+$green:                 #51B148 !default;
+$green-color:           #3b9557 !default;
+$green-color-hover:     #50a66d !default;
+$yellowLight:			#ffebac !default; //
+$yellow:                #ffcc35 !default; //
+$yellowDark:			#ff9727 !default; //
+$yellowDark-hover:      #fcaa0c !default; //
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
+$primary:               #0078E7 !default;
+$brownness:				#a14a39 !default;
+$brownnessDark:			#7f2715 !default;
+
+$brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
+$brand-success:         #5cb85c !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+$redTxt:				#e53d09; //红色字体，用于：标红的号码
+
+$body-bg:               #fff !default;
+$text-color:            $gray !default;
+$link-color:            $gray-dark !default;
+$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+$border-color: 			#e0e0e0 !default;
+
+$font-family-base:        "Arial","SimSun","宋体","Arial Narrow",HELVETICA !default;
+$font-family-serif:       "Microsoft YaHei","微软雅黑","SimHei","黑体" !default;
+
+
+$font-size-base:          14px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-middle:        ceil(($font-size-base * 1.14)) !default; // ~16px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.4)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+
+$line-height-base:        	22px !default; // 20/14
+$line-height-large:         24px !default; // extra decimals for Win 8.1 Chrome
+$line-height-small:         18px !default;
+
+
+
+$padding-base-vertical:     6px !default;
+$padding-base-horizontal:   12px !default;
+
+$padding-xl-vertical:    	10px !default;
+$padding-xl-horizontal:  	16px !default;
+
+$padding-large-vertical:    10px !default;
+$padding-large-horizontal:  16px !default;
+
+$padding-small-vertical:    5px !default;
+$padding-small-horizontal:  10px !default;
+
+$padding-xs-vertical:       1px !default;
+$padding-xs-horizontal:     5px !default;
+
+
+
+$border-radius-base:        3px !default;
+$border-radius-large:       5px !default;
+$border-radius-small:       2px !default;
+
+
+$input-bg:                       #fff !default;
+$input-bg-disabled:              $gray-lighter !default;
+$input-color:                    $gray !default;
+$input-border:                   #ccc !default;
+$input-border-radius:            $border-radius-base !default;
+$input-border-radius-large:      $border-radius-large !default;
+$input-border-radius-small:      $border-radius-small !default;
+$input-border-focus:             #66afe9 !default;
+$input-color-placeholder:        #999 !default;
+
+
+$zindex-navbar:            1000 !default;
+$zindex-dropdown:          1000 !default;
+$zindex-popover:           1060 !default;
+$zindex-tooltip:           1070 !default;
+$zindex-navbar-fixed:      1030 !default;
+$zindex-modal-background:  1040 !default;
+$zindex-modal:             1050 !default;
+
+
+
+$grid-columns:              12 !default;
+$grid-gutter-width:         30px !default;
+
+$wrap-width:	1200px !default;
+$images-path:	"/images/" !default;
+
+//== icons
+
+$icons-path:		"icons.png?20160217" "icons.gif?20160217" !default;
+$icons16-path:		$icons-path !default;
+$icons16-width:		16px !default;
+$icons16: 			("my": ("x": 0,"y": 0),"broadcast": ("x": -16px,"y": 0),"dot": ("x": -32px,"y": 0)) !default;
+
+$icons20-path:		$icons-path !default;
+$icons20-width:		20px !default;
+$icons20: 			("login": ("x": 0,"y": -16px),"register": ("x": -20px,"y": -16px),"minus": ("x": -40px,"y": -16px),"plus": ("x": -60px,"y": -16px),"note": ("x": -120px,"y": -16px)) !default;
+
+$icons32-path:		$icons-path !default;
+$icons32-width:		32px !default;
+$icons32: 			("help": ("x": 0,"y": -36px),"question": ("x": -32px,"y": -36px),"pledge": ("x": -64px,"y": -36px)) !default;
