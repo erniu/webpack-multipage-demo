@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -11,7 +12,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',
-        publicpath: 'http://yourweb.com/asset/build/'
+        publicPath: 'http://static.1.lecai.com/'
     },
     resolve: {
         alias: {
@@ -43,7 +44,7 @@ module.exports = {
             test: /\.(jpe?g|png|gif|svg)$/i,
             // loader: 'url?limit=8192&name=images/[name].[ext]?[hash]'
             loaders: [
-                'url?limit=81&name=/images/[name].[ext]?[hash]',
+                'url?limit=81&name=images/[name].[ext]?[hash]',
                 'image-webpack?optimizationLevel=3'
             ]
         }]
@@ -52,7 +53,20 @@ module.exports = {
         // new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.CommonsChunkPlugin('common', 'js/common.js'),
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('css/[name].css'),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './pages/default.html',
+            chunks: ['index', 'common'],
+            // excludeChunks: ['common'],
+            hash: true
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'list.html',
+            template: './pages/list.html',
+            chunks: ['list', 'common'],
+            hash: true
+        })
     ]
 };
 

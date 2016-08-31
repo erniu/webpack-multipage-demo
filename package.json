@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.config.dev.js --content-base ./ --watch --progress",
+    "dev": "webpack-dev-server --config webpack.config.dev.js --content-base ./ --inline",
     "build": "webpack --config webpack.config.prod.js"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "css-loader": "^0.24.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
     "image-webpack-loader": "^2.0.0",
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
