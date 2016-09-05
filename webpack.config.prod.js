@@ -56,7 +56,7 @@ module.exports = {
         new ExtractTextPlugin('css/[name].css'),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './pages/default.html',
+            template: './pages/index.html',
             chunks: ['index', 'common'],
             // excludeChunks: ['common'],
             hash: true

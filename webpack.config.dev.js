@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -10,7 +11,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'js/[name].bundle.js'
+        filename: 'js/[name].bundle.js',
+        publicPath: '/'
     },
     resolve: {
         alias: {
@@ -49,7 +51,19 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common', 'js/common.js'),
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('css/[name].css'),
+        new HtmlWebpackPlugin({
+            template: './pages/list.html',
+            filename: 'list.html',
+            inject: 'body',
+            chunks: ['common', 'list']
+        }),
+        new HtmlWebpackPlugin({
+            template: './pages/index.html',
+            filename: 'index.html',
+            inject: 'body',
+            chunks: ['common', 'index']
+        })
     ]
 };
 
